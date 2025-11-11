@@ -1,460 +1,559 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
-<head>
+  <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Phishing: Guia Completo de Proteção — Projeto Integrador A3</title>
-
-    <!-- SweetAlert2 (usado apenas para mensagem educativa) -->
+    <title>Phishing: Guia Completo de Proteção — Projeto A3</title>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-            background: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
-            color: #1f2937;
-            min-height: 100vh;
-            padding: 28px;
-        }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial;
+        background: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
+        color: #1f2937;
+        min-height: 100vh;
+        padding: 28px;
+      }
 
-        .wrap {
-            max-width: 1100px;
-            margin: 0 auto;
-        }
+      .wrap {
+        max-width: 1100px;
+        margin: 0 auto;
+      }
 
-        .card {
-            background: rgba(255,255,255,0.95);
-            border-radius: 16px;
-            padding: 28px;
-            box-shadow: 0 18px 40px rgba(15,23,42,0.08);
-            border: 1px solid rgba(0,0,0,0.04);
-            margin-bottom: 24px;
-        }
+      .card {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 16px;
+        padding: 28px;
+        box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+        border: 1px solid rgba(0, 0, 0, 0.04);
+        margin-bottom: 24px;
+      }
 
-        h1 {
-            font-size: 2.6rem;
-            background: linear-gradient(135deg,#dc2626,#991b1b);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 12px;
-            text-align: center;
-        }
+      h1 {
+        font-size: 2.6rem;
+        background: linear-gradient(135deg, #dc2626, #991b1b);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 12px;
+        text-align: center;
+      }
 
-        h2 {
-            font-size: 1.5rem;
-            color: #0f172a;
-            margin-top: 10px;
-            margin-bottom: 12px;
-        }
+      h2 {
+        font-size: 1.5rem;
+        color: #0f172a;
+        margin-top: 10px;
+        margin-bottom: 12px;
+      }
 
-        p { margin-bottom: 14px; color: #374151; line-height: 1.6; }
+      p {
+        margin-bottom: 14px;
+        color: #374151;
+        line-height: 1.6;
+      }
 
-        .danger-box, .info-box, .warning-box {
-            border-radius: 12px;
-            padding: 16px;
-            margin: 16px 0;
-        }
+      .danger-box,
+      .info-box,
+      .warning-box {
+        border-radius: 12px;
+        padding: 16px;
+        margin: 16px 0;
+      }
 
-        .danger-box { background: linear-gradient(135deg,#fee2e2,#fecaca); border-left: 4px solid #ef4444; }
-        .info-box { background: linear-gradient(135deg,#dbeafe,#bfdbfe); border-left: 4px solid #3b82f6; }
-        .warning-box { background: linear-gradient(135deg,#fff7ed,#ffedd5); border-left: 4px solid #f59e0b; }
+      .danger-box {
+        background: linear-gradient(135deg, #fee2e2, #fecaca);
+        border-left: 4px solid #ef4444;
+      }
+      .info-box {
+        background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+        border-left: 4px solid #3b82f6;
+      }
+      .warning-box {
+        background: linear-gradient(135deg, #fff7ed, #ffedd5);
+        border-left: 4px solid #f59e0b;
+      }
 
-        ul { margin-left: 18px; margin-bottom: 12px; }
-        li { margin-bottom: 8px; }
+      ul {
+        margin-left: 18px;
+        margin-bottom: 12px;
+      }
+      li {
+        margin-bottom: 8px;
+      }
 
-        img.responsive { width: 100%; max-width: 540px; display: block; margin: 18px auto; border-radius: 12px; }
+      img.responsive {
+        width: 100%;
+        max-width: 540px;
+        display: block;
+        margin: 18px auto;
+        border-radius: 12px;
+      }
 
-        details { margin: 12px 0; border-radius: 12px; overflow: hidden; border: 1px solid rgba(0,0,0,0.04); }
-        summary {
-            padding: 14px 18px;
-            background: linear-gradient(180deg,#f8fafc,#eef2ff);
-            cursor: pointer;
-            font-weight: 600;
-        }
-        details[open] summary { background: linear-gradient(135deg,#dc2626,#b91c1c); color: white; }
+      details {
+        margin: 12px 0;
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid rgba(0, 0, 0, 0.04);
+      }
+      summary {
+        padding: 14px 18px;
+        background: linear-gradient(180deg, #f8fafc, #eef2ff);
+        cursor: pointer;
+        font-weight: 600;
+      }
+      details[open] summary {
+        background: linear-gradient(135deg, #dc2626, #b91c1c);
+        color: white;
+      }
 
-        /* Modules area */
+      /* Modules area */
+      .modules {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+        margin-top: 8px;
+      }
+
+      @media (max-width: 900px) {
         .modules {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 18px;
-            margin-top: 8px;
+          grid-template-columns: 1fr;
         }
+      }
 
-        @media (max-width: 900px) {
-            .modules { grid-template-columns: 1fr; }
-        }
+      .module {
+        background: rgba(255, 255, 255, 0.98);
+        padding: 16px;
+        border-radius: 12px;
+        box-shadow: 0 10px 24px rgba(2, 6, 23, 0.04);
+      }
 
-        .module {
-            background: rgba(255,255,255,0.98);
-            padding: 16px;
-            border-radius: 12px;
-            box-shadow: 0 10px 24px rgba(2,6,23,0.04);
-        }
+      label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: 600;
+        color: #0f172a;
+      }
+      input[type="text"],
+      input[type="number"],
+      textarea,
+      select {
+        width: 100%;
+        padding: 10px 12px;
+        border-radius: 8px;
+        border: 1px solid rgba(15, 23, 42, 0.08);
+        margin-bottom: 10px;
+        font-size: 0.95rem;
+      }
 
-        label { display:block; margin-bottom:6px; font-weight:600; color:#0f172a; }
-        input[type="text"], input[type="number"], textarea, select {
-            width:100%;
-            padding:10px 12px;
-            border-radius:8px;
-            border:1px solid rgba(15,23,42,0.08);
-            margin-bottom:10px;
-            font-size:0.95rem;
-        }
+      button.primary {
+        width: 100%;
+        padding: 10px 12px;
+        background: linear-gradient(135deg, #dc2626, #991b1b);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 700;
+      }
+      button.secondary {
+        background: linear-gradient(135deg, #1e3a8a, #2563eb);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 10px;
+        width: 100%;
+        font-weight: 700;
+        cursor: pointer;
+      }
 
-        button.primary {
-            width:100%;
-            padding:10px 12px;
-            background: linear-gradient(135deg,#dc2626,#991b1b);
-            color:white;
-            border: none;
-            border-radius:8px;
-            cursor:pointer;
-            font-weight:700;
-        }
-        button.secondary {
-            background: linear-gradient(135deg,#1e3a8a,#2563eb);
-            color:white;
-            border:none;
-            border-radius:8px;
-            padding:10px;
-            width:100%;
-            font-weight:700;
-            cursor:pointer;
-        }
+      .output {
+        margin-top: 8px;
+        background: rgba(2, 6, 23, 0.03);
+        padding: 10px;
+        border-radius: 8px;
+        white-space: pre-wrap;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono",
+          monospace;
+        color: #111827;
+      }
 
-        .output {
-            margin-top: 8px;
-            background: rgba(2,6,23,0.03);
-            padding: 10px;
-            border-radius: 8px;
-            white-space: pre-wrap;
-            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;
-            color: #111827;
-        }
+      .footer {
+        text-align: center;
+        color: #6b7280;
+        margin-top: 18px;
+        font-size: 0.92rem;
+      }
 
-        .footer {
-            text-align:center;
-            color:#6b7280;
-            margin-top: 18px;
-            font-size: 0.92rem;
-        }
+      .nav-cards {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 10px;
+      }
 
-        .nav-cards {
-            display:flex;
-            gap:12px;
-            flex-wrap:wrap;
-            margin-top:10px;
-        }
+      .nav-card {
+        flex: 1;
+        min-width: 220px;
+        padding: 12px;
+        border-radius: 10px;
+        color: white;
+        text-decoration: none;
+        display: block;
+        text-align: center;
+      }
 
-        .nav-card {
-            flex:1;
-            min-width:220px;
-            padding:12px;
-            border-radius:10px;
-            color:white;
-            text-decoration:none;
-            display:block;
-            text-align:center;
-        }
-
-        .nav-card.crypt { background: linear-gradient(135deg,#7f1d1d,#dc2626); }
-        .nav-card.conv { background: linear-gradient(135deg,#0f172a,#1e3a8a); }
+      .nav-card.crypt {
+        background: linear-gradient(135deg, #7f1d1d, #dc2626);
+      }
+      .nav-card.conv {
+        background: linear-gradient(135deg, #0f172a, #1e3a8a);
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="wrap">
-        <div class="card">
-            <h1>Phishing: Guia Completo de Proteção</h1>
+      <div class="card">
+        <h1>Phishing: Guia Completo de Proteção</h1>
 
-            <div class="danger-box">
-                <h2>⚠️ Alerta Importante</h2>
-                <p>O phishing é uma das principais ameaças cibernéticas. Este guia é educativo: ele explica como ataques funcionam e como se proteger — <strong>sem coletar dados reais</strong>.</p>
-            </div>
-
-            <h2>O que é Phishing?</h2>
-            <p>O <strong>phishing</strong> é uma técnica maliciosa em que golpistas se passam por empresas ou serviços confiáveis para obter informações sensíveis (senhas, dados bancários, etc.). Estes ataques podem acontecer por e-mail, SMS, redes sociais ou páginas falsas.</p>
-
-            <div style="text-align:center; margin:14px 0;">
-                <!-- Exemplo de vídeo educativo (embutido) -->
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/gSQgbCo6PAg?si=747FYLbho9T8Nc68" title="Vídeo educativo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="max-width:100%; border-radius:12px;"></iframe>
-            </div>
-
-            <h2>Como Funciona o Phishing?</h2>
-            <p>Os golpistas criam comunicações ou páginas que imitam serviços reais para induzir a vítima a entregar informações. Muitas vezes exploram pressa, medo ou curiosidade.</p>
-
-            <div class="info-box">
-                <h2>💡 Dados e Contexto</h2>
-                <p>Grande parte dos ataques começa com uma mensagem convincente. No Brasil, golpes bancários e falso suporte técnico são comuns — por isso a educação é a melhor defesa.</p>
-            </div>
-
-            <h2>Tipos Mais Comuns</h2>
-            <ul>
-                <li>E-mail Phishing</li>
-                <li>Smishing (SMS)</li>
-                <li>Vishing (ligações)</li>
-                <li>Sites falsos (clone de páginas)</li>
-                <li>Mensagens em redes sociais</li>
-            </ul>
-
-            <img class="responsive" src="imagens/ataque.png" alt="Tipos de ataques de phishing (ilustração)">
-
-            <h2>Como Identificar</h2>
-            <details>
-                <summary>🔍 Sinais em E-mails</summary>
-                <ul>
-                    <li>Remetente com domínio suspeito</li>
-                    <li>Erros de ortografia ou tradução estranha</li>
-                    <li>Urgência ou ameaças indevidas</li>
-                    <li>Solicitação de informações sensíveis</li>
-                    <li>Links que levam a domínios diferentes</li>
-                </ul>
-            </details>
-
-            <details>
-                <summary>🌐 Sinais em Sites</summary>
-                <ul>
-                    <li>URL diferente do oficial</li>
-                    <li>Falta de certificado HTTPS (cadeado)</li>
-                    <li>Design malfeito ou inconsistências</li>
-                    <li>Formulários pedindo dados demais</li>
-                </ul>
-            </details>
-
-            <h2>Como Se Proteger</h2>
-            <div class="warning-box">
-                <ul>
-                    <li>Verifique o remetente e o link antes de clicar</li>
-                    <li>Digite o endereço do site manualmente no navegador</li>
-                    <li>Use 2FA sempre que disponível</li>
-                    <li>Mantenha software e antivírus atualizados</li>
-                    <li>Use gerenciadores de senha</li>
-                </ul>
-            </div>
-
-            <h2>O que Fazer se Você Caiu</h2>
-            <details>
-                <summary>🚨 Passos Imediatos</summary>
-                <ul>
-                    <li>Troque senhas afetadas</li>
-                    <li>Avise o banco/serviço</li>
-                    <li>Monitore extratos e transações</li>
-                    <li>Faça boletim de ocorrência se necessário</li>
-                </ul>
-            </details>
-
-            <h2>Como Denunciar</h2>
-            <p>No Brasil: CERT.br, Polícia Civil (Delegacia de Crimes Cibernéticos), Procon e o próprio banco ou empresa envolvida.</p>
+        <div class="danger-box">
+          <h2>Alerta Importante</h2>
+          <p>
+            O phishing é uma das principais ameaças cibernéticas. Este guia é
+            educativo: ele explica como ataques funcionam e como se proteger —
+            <strong>sem coletar dados reais</strong>.
+          </p>
         </div>
 
-        <!-- Integrated Modules + short intro -->
-        <div class="card">
-            <h2>Pratique o que aprendeu 🧠</h2>
-            <p>Nos módulos abaixo você pode experimentar uma cifra simples (Cifra de César) e converter números entre bases. Tudo aqui é educativo — nada é enviado a servidor externo.</p>
+        <h2>O que é Phishing?</h2>
+        <p>
+          O <strong>phishing</strong> é uma técnica maliciosa em que golpistas
+          se passam por empresas ou serviços confiáveis para obter informações
+          sensíveis (senhas, dados bancários, etc.). Estes ataques podem
+          acontecer por e-mail, SMS, redes sociais ou páginas falsas.
+        </p>
 
-            <div class="nav-cards" aria-hidden="true" style="margin-bottom:12px;">
-                <div class="nav-card crypt">🔐 Criptografia Educativa</div>
-                <div class="nav-card conv">🔢 Conversor de Bases</div>
-            </div>
-
-            <div class="modules" role="region" aria-label="Módulos">
-                <!-- Cifra de César -->
-                <div class="module" id="module-crypto">
-                    <h2>🔐 Cifra de César (educativa)</h2>
-                    <p>Teste uma cifra clássica: escolha deslocamento e criptografe ou descriptografe. Lembre-se: Cifra de César NÃO é segura para aplicações reais — é apenas didática.</p>
-
-                    <label for="texto">Mensagem</label>
-                    <textarea id="texto" rows="4" placeholder="Digite a mensagem..."></textarea>
-
-                    <label for="chave">Deslocamento (1–25)</label>
-                    <input type="number" id="chave" min="1" max="25" value="3">
-
-                    <label for="modoCrypto">Modo</label>
-                    <select id="modoCrypto">
-                        <option value="cripto">Criptografar</option>
-                        <option value="decripto">Descriptografar</option>
-                    </select>
-
-                    <button class="primary" id="btnCrypto">Executar</button>
-
-                    <div class="output" id="outCrypto" aria-live="polite">Resultado aparecerá aqui.</div>
-                </div>
-
-                <!-- Conversor de Bases -->
-                <div class="module" id="module-converter">
-                    <h2>🔢 Conversor de Bases</h2>
-                    <p>Insira um número na base escolhida e veja as conversões para decimal, binário, octal e hexadecimal.</p>
-
-                    <label for="valor">Valor</label>
-                    <input type="text" id="valor" placeholder="Ex.: 1011 (se base binária) ou 255">
-
-                    <label for="base">Base de entrada</label>
-                    <select id="base">
-                        <option value="2">Binário (base 2)</option>
-                        <option value="8">Octal (base 8)</option>
-                        <option value="10" selected>Decimal (base 10)</option>
-                        <option value="16">Hexadecimal (base 16)</option>
-                    </select>
-
-                    <button class="secondary" id="btnConv">Converter</button>
-
-                    <div class="output" id="outConv" aria-live="polite">Resultado aparecerá aqui.</div>
-                </div>
-            </div>
+        <div style="text-align: center; margin: 14px 0">
+          <iframe
+            width="560"
+            height="315"
+            src="https://www.youtube.com/embed/gSQgbCo6PAg?si=747FYLbho9T8Nc68"
+            title="Vídeo educativo"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            style="max-width: 100%; border-radius: 12px"
+          ></iframe>
         </div>
 
-        <div class="card">
-            <h2>Ferramentas Recomendadas & Boas Práticas</h2>
-            <div class="info-box">
-                <ul>
-                    <li>Antivírus: Windows Defender, Kaspersky, Norton</li>
-                    <li>Extensões: uBlock Origin, Malwarebytes Browser Guard</li>
-                    <li>Gerenciadores de senha: Bitwarden, 1Password</li>
-                    <li>Autenticação 2FA: Google Authenticator, Authy</li>
-                    <li>Consulte normas e leis: ISO 27001 / LGPD (para requisitos de proteção de dados)</li>
-                </ul>
+        <h2>Como Funciona o Phishing?</h2>
+        <p>
+          Os golpistas criam comunicações ou páginas que imitam serviços reais
+          para induzir a vítima a entregar informações. Muitas vezes exploram
+          pressa, medo ou curiosidade.
+        </p>
+
+        <div class="info-box">
+          <h2>Dados e Contexto</h2>
+          <p>
+            Grande parte dos ataques começa com uma mensagem convincente. No
+            Brasil, golpes bancários e falso suporte técnico são comuns — por
+            isso a educação é a melhor defesa.
+          </p>
+        </div>
+
+        <h2>Tipos Mais Comuns</h2>
+        <ul>
+          <li>E-mail Phishing</li>
+          <li>Smishing (SMS)</li>
+          <li>Vishing (ligações)</li>
+          <li>Sites falsos (clone de páginas)</li>
+          <li>Mensagens em redes sociais</li>
+        </ul>
+
+        <img
+          class="responsive"
+          src="imagens/ataque.png"
+          alt="Tipos de ataques de phishing (ilustração)"
+        />
+
+        <h2>Como Identificar</h2>
+        <details>
+          <summary>Sinais em E-mails</summary>
+          <ul>
+            <li>Remetente com domínio suspeito</li>
+            <li>Erros de ortografia ou tradução estranha</li>
+            <li>Urgência ou ameaças indevidas</li>
+            <li>Solicitação de informações sensíveis</li>
+            <li>Links que levam a domínios diferentes</li>
+          </ul>
+        </details>
+
+        <details>
+          <summary>Sinais em Sites</summary>
+          <ul>
+            <li>URL diferente do oficial</li>
+            <li>Falta de certificado HTTPS (cadeado)</li>
+            <li>Design malfeito ou inconsistências</li>
+            <li>Formulários pedindo dados demais</li>
+          </ul>
+        </details>
+
+        <h2>Como Se Proteger</h2>
+        <div class="warning-box">
+          <ul>
+            <li>Verifique o remetente e o link antes de clicar</li>
+            <li>Digite o endereço do site manualmente no navegador</li>
+            <li>Use 2FA sempre que disponível</li>
+            <li>Mantenha software e antivírus atualizados</li>
+            <li>Use gerenciadores de senha</li>
+          </ul>
+        </div>
+
+        <h2>O que Fazer se Você Caiu</h2>
+        <details>
+          <summary>Passos Imediatos</summary>
+          <ul>
+            <li>Troque senhas afetadas</li>
+            <li>Avise o banco/serviço</li>
+            <li>Monitore extratos e transações</li>
+            <li>Faça boletim de ocorrência se necessário</li>
+          </ul>
+        </details>
+
+        <h2>Como Denunciar</h2>
+        <p>
+          No Brasil: CERT.br, Polícia Civil (Delegacia de Crimes Cibernéticos),
+          Procon e o próprio banco ou empresa envolvida.
+        </p>
+      </div>
+
+      <div class="card">
+        <h2>Pratique o que aprendeu</h2>
+        <p>
+          Nos módulos abaixo você pode experimentar uma cifra simples (Cifra de
+          César) e converter números entre bases. Tudo aqui é educativo — nada é
+          enviado a servidor externo.
+        </p>
+
+        <div class="nav-cards" aria-hidden="true" style="margin-bottom: 12px">
+          <div class="nav-card crypt">Criptografia</div>
+          <div class="nav-card conv">Conversor de Bases</div>
+        </div>
+
+        <div class="modules" role="region" aria-label="Módulos">
+          <div class="module" id="module-crypto">
+            <h2>Cifra de César</h2>
+            <p>
+              Teste uma cifra clássica: escolha deslocamento e criptografe ou
+              descriptografe. Lembre-se: Cifra de César NÃO é segura para
+              aplicações reais — é apenas didática.
+            </p>
+
+            <label for="texto">Mensagem</label>
+            <textarea
+              id="texto"
+              rows="4"
+              placeholder="Digite a mensagem..."
+            ></textarea>
+
+            <label for="chave">Deslocamento (1–25)</label>
+            <input type="number" id="chave" min="1" max="25" value="3" />
+
+            <label for="modoCrypto">Modo</label>
+            <select id="modoCrypto">
+              <option value="cripto">Criptografar</option>
+              <option value="decripto">Descriptografar</option>
+            </select>
+
+            <button class="primary" id="btnCrypto">Executar</button>
+
+            <div class="output" id="outCrypto" aria-live="polite">
+              Resultado aparecerá aqui.
             </div>
+          </div>
 
-            <h2>Conclusão</h2>
-            <p>Manter-se informado e seguir boas práticas é essencial. Use este protótipo como material educativo para entender ameaças e formas de prevenção.</p>
+          <div class="module" id="module-converter">
+            <h2>Conversor de Bases</h2>
+            <p>
+              Insira um número na base escolhida e veja as conversões para
+              decimal, binário, octal e hexadecimal.
+            </p>
+
+            <label for="valor">Valor</label>
+            <input
+              type="text"
+              id="valor"
+              placeholder="Ex.: 1011 (se base binária) ou 255"
+            />
+
+            <label for="base">Base de entrada</label>
+            <select id="base">
+              <option value="2">Binário (base 2)</option>
+              <option value="8">Octal (base 8)</option>
+              <option value="10" selected>Decimal (base 10)</option>
+              <option value="16">Hexadecimal (base 16)</option>
+            </select>
+
+            <button class="secondary" id="btnConv">Converter</button>
+
+            <div class="output" id="outConv" aria-live="polite">
+              Resultado aparecerá aqui.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Ferramentas Recomendadas & Boas Práticas</h2>
+        <div class="info-box">
+          <ul>
+            <li>Antivírus: Windows Defender, Kaspersky, Norton</li>
+            <li>Extensões: uBlock Origin, Malwarebytes Browser Guard</li>
+            <li>Gerenciadores de senha: Bitwarden, 1Password</li>
+            <li>Autenticação 2FA: Google Authenticator, Authy</li>
+            <li>
+              Consulte normas e leis: ISO 27001 / LGPD (para requisitos de
+              proteção de dados)
+            </li>
+          </ul>
         </div>
 
-        <div class="footer card" style="text-align:center;">
-            Projeto Integrador A3 — Simulador de Sistema Computacional Seguro • Conteúdo educativo (sem coleta de credenciais)
-        </div>
+        <h2>Conclusão</h2>
+        <p>
+          Manter-se informado e seguir boas práticas é essencial. Use este
+          protótipo como material educativo para entender ameaças e formas de
+          prevenção.
+        </p>
+      </div>
+
+      <div class="footer card" style="text-align: center">
+        Projeto Integrador A3 — Simulador de Sistema Computacional Seguro •
+        Conteúdo educativo (sem coleta de credenciais)
+      </div>
     </div>
 
- 
     <script>
-     
+      window.addEventListener("load", () => {
+        const params = new URLSearchParams(window.location.search);
+        const demoEmail = params.get("email");
+        const demoSenha = params.get("senha");
 
-        window.addEventListener('load', () => {
-            const params = new URLSearchParams(window.location.search);
-            const demoEmail = params.get('email');   // aceitar ?demo_email=...
-            const demoSenha = params.get('senha');   // aceitar ?demo_senha=...
+        if (demoEmail || demoSenha) {
+          Swal.fire({
+            title: "Simulação — dados de teste",
+            html: `
+          <p><strong>Email (teste):</strong> ${demoEmail ? demoEmail : "—"}</p>
+          <p><strong>Senha (mascarada):</strong> ${
+            demoSenha ? demoSenha : "—"
+          }</p>
+          <p style="color:#6b7280; font-size:0.9rem; margin-top:8px;">
+            Isso é apenas uma demonstração educativa. Nunca armazene credenciais reais em URLs.
+          </p>
+        `,
+            icon: "warning",
+            confirmButtonText: "Continuar",
+          });
+        } else {
+          Swal.fire({
+            title: "Bem-vindo(a)!",
+            html: `<p>Este é um ambiente educativo sobre phishing. Não são exibidos nem armazenados dados sensíveis.</p>`,
+            icon: "info",
+            confirmButtonText: "Entendi",
+          });
+        }
+      });
 
-            if (demoEmail || demoSenha) {
-                Swal.fire({
-                    title: 'Simulação — dados de teste',
-                    html: `
-                      <p><strong>Email (teste):</strong> ${demoEmail ? demoEmail : '—'}</p>
-                      <p><strong>Senha (mascarada):</strong> ${demoSenha ? demoSenha : '—'}</p>
-                      <p style="color:#6b7280; font-size:0.9rem; margin-top:8px;">
-                         Isso é apenas uma demonstração educativa. Nunca armazene credenciais reais em URLs.
-                      </p>
-                    `,
-                    icon: 'warning',
-                    confirmButtonText: 'Continuar'
-                });
-            } else {
-                // alerta padrão educativo
-                Swal.fire({
-                    title: '🛡️ Bem-vindo(a)!',
-                    html: `<p>Este é um ambiente educativo sobre phishing. Não são exibidos nem armazenados dados sensíveis.</p>`,
-                    icon: 'info',
-                    confirmButtonText: 'Entendi'
-                });
-            }
-        });
+      function cifraDeCesar(texto, deslocamento, modo) {
+        deslocamento = ((deslocamento % 26) + 26) % 26;
+        if (modo === "decripto") deslocamento = (26 - deslocamento) % 26;
+        let out = "";
+        for (let c of texto) {
+          if (c >= "A" && c <= "Z") {
+            out += String.fromCharCode(
+              ((c.charCodeAt(0) - 65 + deslocamento) % 26) + 65
+            );
+          } else if (c >= "a" && c <= "z") {
+            out += String.fromCharCode(
+              ((c.charCodeAt(0) - 97 + deslocamento) % 26) + 97
+            );
+          } else {
+            out += c;
+          }
+        }
+        return out;
+      }
 
-        /* ---------------------------
-           Cifra de César (client-side educational)
-           --------------------------- */
-        function cifraDeCesar(texto, deslocamento, modo) {
-            deslocamento = ((deslocamento % 26) + 26) % 26;
-            if (modo === 'decripto') deslocamento = (26 - deslocamento) % 26;
-            let out = '';
-            for (let i = 0; i < texto.length; i++) {
-                const c = texto[i];
-                if (c >= 'A' && c <= 'Z') {
-                    const code = ((c.charCodeAt(0) - 65 + deslocamento) % 26) + 65;
-                    out += String.fromCharCode(code);
-                } else if (c >= 'a' && c <= 'z') {
-                    const code = ((c.charCodeAt(0) - 97 + deslocamento) % 26) + 97;
-                    out += String.fromCharCode(code);
-                } else {
-                    out += c;
-                }
-            }
-            return out;
+      document.getElementById("btnCrypto").addEventListener("click", () => {
+        const texto = document.getElementById("texto").value || "";
+        const chave = parseInt(document.getElementById("chave").value) || 0;
+        const modo = document.getElementById("modoCrypto").value;
+
+        if (!texto.trim()) {
+          document.getElementById("outCrypto").innerText =
+            "Digite uma mensagem para processar.";
+          return;
+        }
+        if (chave < 1 || chave > 25) {
+          document.getElementById("outCrypto").innerText =
+            "Escolha um deslocamento entre 1 e 25.";
+          return;
         }
 
-        document.getElementById('btnCrypto').addEventListener('click', () => {
-            const texto = document.getElementById('texto').value || '';
-            const chave = parseInt(document.getElementById('chave').value) || 0;
-            const modo = document.getElementById('modoCrypto').value;
-            if (!texto.trim()) {
-                document.getElementById('outCrypto').innerText = 'Digite uma mensagem para processar.';
-                return;
-            }
-            if (chave < 1 || chave > 25) {
-                document.getElementById('outCrypto').innerText = 'Escolha um deslocamento entre 1 e 25.';
-                return;
-            }
-            const resultado = cifraDeCesar(texto, chave, modo);
-            document.getElementById('outCrypto').innerText = `${modo === 'cripto' ? 'Criptografado:' : 'Descriptografado:'}\n\n${resultado}`;
-        });
+        const resultado = cifraDeCesar(texto, chave, modo);
+        document.getElementById("outCrypto").innerText = `${
+          modo === "cripto" ? "Criptografado:" : "Descriptografado:"
+        }\n\n${resultado}`;
+      });
 
-        /* ---------------------------
-           Conversor de Bases
-           --------------------------- */
-        function parseValueToDecimal(valorStr, base) {
-            const s = String(valorStr).trim().replace(/_/g, '');
-            if (s === '') return NaN;
-            if (base === 16) {
-                const v = s.toLowerCase().startsWith('0x') ? s.slice(2) : s;
-                return parseInt(v, 16);
-            }
-            if (base === 2 || base === 8 || base === 10) {
-                const prefixes = {2: '0b', 8: '0o', 10: ''};
-                let v = s.toLowerCase();
-                if (prefixes[base] && v.startsWith(prefixes[base])) v = v.slice(prefixes[base].length);
-                return parseInt(v, base);
-            }
-            return NaN;
+      document.getElementById("btnConv").addEventListener("click", () => {
+        const valor = document.getElementById("valor").value.trim();
+        const base = parseInt(document.getElementById("base").value);
+        const out = document.getElementById("outConv");
+
+        if (!valor) {
+          out.innerText = "Digite um valor para converter.";
+          return;
         }
 
-        document.getElementById('btnConv').addEventListener('click', () => {
-            const valor = document.getElementById('valor').value || '';
-            const base = parseInt(document.getElementById('base').value);
-            if (!valor.trim()) {
-                document.getElementById('outConv').innerText = 'Digite um valor para converter.';
-                return;
-            }
+        const decimal = parseInt(valor, base);
 
-            const dec = parseValueToDecimal(valor, base);
-            if (isNaN(dec)) {
-                document.getElementById('outConv').innerText = 'Valor inválido para a base selecionada.';
-                return;
-            }
+        if (isNaN(decimal)) {
+          out.innerText = "Valor inválido para a base selecionada.";
+          return;
+        }
 
-            const bin = dec.toString(2);
-            const oct = dec.toString(8);
-            const hex = dec.toString(16).toUpperCase();
+        const bin = decimal.toString(2);
+        const oct = decimal.toString(8);
+        const hex = decimal.toString(16).toUpperCase();
 
-            const resultText =
-`Entrada: ${valor} (base ${base})
-Decimal: ${dec}
+        out.innerText = `Entrada: ${valor} (base ${base})
+Decimal: ${decimal}
 Binário: ${bin}
 Octal: ${oct}
 Hexadecimal: ${hex}`;
+      });
 
-            document.getElementById('outConv').innerText = resultText;
-        });
+      document.getElementById("valor").addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          document.getElementById("btnConv").click();
+        }
+      });
 
-        // Accessibility shortcuts
-        document.getElementById('valor').addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') { e.preventDefault(); document.getElementById('btnConv').click(); }
-        });
-        document.getElementById('texto').addEventListener('keydown', (e) => {
-            if (e.ctrlKey && e.key === 'Enter') { e.preventDefault(); document.getElementById('btnCrypto').click(); }
-        });
-
+      document.getElementById("texto").addEventListener("keydown", (e) => {
+        if (e.ctrlKey && e.key === "Enter") {
+          e.preventDefault();
+          document.getElementById("btnCrypto").click();
+        }
+      });
     </script>
-</body>
+  </body>
 </html>
