@@ -6,9 +6,13 @@ Faculdade Internacional da Paraíba
 # Membros
 
 Aquirone Carlos do Nascimento Filho - 1362518698
+
 Érika de Souza Leite - 1362519135
+
 Mateus Mendes dos Santos - 1362519034
+
 Taina da Silveira Gonçalves - 1362520893
+
 
 
 # Orientadores
